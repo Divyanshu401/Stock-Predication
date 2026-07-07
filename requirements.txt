@@ -8,3 +8,4 @@ statsmodels
 ta
 python-dateutil
 curl_cffi
+pandas-datareader

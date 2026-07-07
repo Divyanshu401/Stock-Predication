@@ -14,14 +14,13 @@ def normalize(df_2):
         df[i]=df[i]/df[i].iloc[0]
     return df
 
-# function to claculation daily return of stock
+# function to calculation daily return of stock
 def daily_return(df):
-    df_daily_return=df.copy()
+    df_daily_return = df.copy()
     for i in df.columns[1:]:
-        for j in range(1,len(df)):
-            df_daily_return[i][j]=(df[i][j]-df[i][j-1]/df[i][j-1])*100
-        df_daily_return[i][0]=0
-    return df_daily_return   
+        df_daily_return[i] = df[i].pct_change() * 100
+    df_daily_return.fillna(0, inplace=True)
+    return df_daily_return
 
 # function to calculate beta 
 def calculate_beta(stocks_daily_return, stock):

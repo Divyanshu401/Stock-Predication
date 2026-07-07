@@ -3,6 +3,7 @@ import dateutil
 #import pandas_ta as pta 
 from dateutil.relativedelta import relativedelta
 from ta.momentum import RSIIndicator
+from ta.trend import MACD as MACDIndicator
 import datetime
 def plotly_table(dataframe):
 
@@ -337,7 +338,7 @@ def Moving_average(dataframe, num_period):
 #     return fig
 def MACD(dataframe, num_period):
 
-    indicator = MACD(close=dataframe["Close"])
+    indicator = MACDIndicator(close=dataframe["Close"])
 
     dataframe["MACD"] = indicator.macd()
     dataframe["MACD_signal"] = indicator.macd_signal()
