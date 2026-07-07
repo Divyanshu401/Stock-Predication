@@ -288,26 +288,63 @@ def Moving_average(dataframe, num_period):
 
     return fig
 # MACD Indicator
+# def MACD(dataframe, num_period):
+
+#     macd = ta.macd(
+#         dataframe["Close"]
+#     )
+
+
+#     dataframe["MACD"] = macd["MACD_12_26_9"]
+#     dataframe["MACD_signal"] = macd["MACDs_12_26_9"]
+#     dataframe["MACD_hist"] = macd["MACDh_12_26_9"]
+
+
+#     dataframe = filter_data(
+#         dataframe,
+#         num_period
+#     )
+
+
+#     fig = go.Figure()
+
+
+#     fig.add_trace(
+#         go.Scatter(
+#             x=dataframe["Date"],
+#             y=dataframe["MACD"],
+#             name="MACD"
+#         )
+#     )
+
+
+#     fig.add_trace(
+#         go.Scatter(
+#             x=dataframe["Date"],
+#             y=dataframe["MACD_signal"],
+#             name="Signal"
+#         )
+#     )
+
+
+#     fig.update_layout(
+#         height=300,
+#         plot_bgcolor="white",
+#         paper_bgcolor="white"
+#     )
+
+
+#     return fig
 def MACD(dataframe, num_period):
 
-    macd = ta.macd(
-        dataframe["Close"]
-    )
+    indicator = MACD(close=dataframe["Close"])
 
+    dataframe["MACD"] = indicator.macd()
+    dataframe["MACD_signal"] = indicator.macd_signal()
 
-    dataframe["MACD"] = macd["MACD_12_26_9"]
-    dataframe["MACD_signal"] = macd["MACDs_12_26_9"]
-    dataframe["MACD_hist"] = macd["MACDh_12_26_9"]
-
-
-    dataframe = filter_data(
-        dataframe,
-        num_period
-    )
-
+    dataframe = filter_data(dataframe, num_period)
 
     fig = go.Figure()
-
 
     fig.add_trace(
         go.Scatter(
@@ -317,7 +354,6 @@ def MACD(dataframe, num_period):
         )
     )
 
-
     fig.add_trace(
         go.Scatter(
             x=dataframe["Date"],
@@ -326,16 +362,13 @@ def MACD(dataframe, num_period):
         )
     )
 
-
     fig.update_layout(
         height=300,
         plot_bgcolor="white",
         paper_bgcolor="white"
     )
 
-
     return fig
-
 
 
 
