@@ -31,11 +31,38 @@ with col2:
 with col3:
     end_date=streamlit.date_input("choose End Date",datetime.date(today.year,today.month,today.day))     
 streamlit.subheader(ticker)
+# stock = yf.Ticker(ticker)
+# streamlit.write(stock.info["longBusinessSummary"])
+# streamlit.write("**Sector**",stock.info['sector'])
+# streamlit.write("**full Time Employees:**",stock.info['fullTimeEmployees'])
+# streamlit.write("**Website**",stock.info['website'])   
+
 stock = yf.Ticker(ticker)
-streamlit.write(stock.info["longBusinessSummary"])
-streamlit.write("**Sector**",stock.info['sector'])
-streamlit.write("**full Time Employees:**",stock.info['fullTimeEmployees'])
-streamlit.write("**Website**",stock.info['website'])   
+
+try:
+    info = stock.info
+except Exception:
+    streamlit.warning("Yahoo Finance rate limit reached. Please try again later.")
+    streamlit.stop()
+
+streamlit.write(
+    info.get("longBusinessSummary", "Not Available")
+)
+
+streamlit.write(
+    "**Sector:**",
+    info.get("sector", "Not Available")
+)
+
+streamlit.write(
+    "**Full Time Employees:**",
+    info.get("fullTimeEmployees", "Not Available")
+)
+
+streamlit.write(
+    "**Website:**",
+    info.get("website", "Not Available")
+)    
 
 col1, col2 = streamlit.columns(2)
 with col1:
